@@ -50,7 +50,14 @@ public class Main {
             JButton visitButton = new JButton("Visit");
 
             // Add actions (for now, just print messages)
-            exitButton.addActionListener(e -> System.out.println("Exit action triggered"));
+            exitButton.addActionListener(e -> {
+                Detainee selected = panel.getSelectedDetainee();
+                if (selected != null) {
+                    System.out.println("Exit action for " + selected.getName());
+                } else {
+                    System.out.println("No detainee selected.");
+                }
+            });
             enterButton.addActionListener(e -> System.out.println("Enter action triggered"));
             patrolButton.addActionListener(e -> System.out.println("Patrol action triggered"));
             releaseButton.addActionListener(e -> System.out.println("Release action triggered"));
