@@ -1,16 +1,15 @@
 package prison;
+
+import javax.swing.*;
+import java.awt.*;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
 public class Main {
     public static void main(String[] args) {
-
         SwingUtilities.invokeLater(() -> {
-
+            // Create detainees for testing
             Sentence s1 = new Sentence(4, LocalDate.of(2022, 1, 1));
             Sentence s2 = new Sentence(8, LocalDate.of(2023, 1, 1));
             Sentence s3 = new Sentence(12, LocalDate.of(2021, 1, 1));
@@ -27,15 +26,44 @@ public class Main {
             List<List<Detainee>> groups = prison.groupDetainees(detainees);
             prison.assignToCells(groups);
 
-            // Créer la fenêtre
+            // Create main frame
             JFrame frame = new JFrame("Prison Management System");
-            frame.setSize(800, 600);
+            frame.setSize(900, 600);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLocationRelativeTo(null);
 
-            // Ajouter le panneau personnalisé
+            // Layout: BorderLayout (center = prison panel, south = buttons)
+            frame.setLayout(new BorderLayout());
+
+            // Prison panel
             PrisonPanel panel = new PrisonPanel(prison);
-            frame.add(panel);
+            frame.add(panel, BorderLayout.CENTER);
+
+            // Buttons panel
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.setLayout(new FlowLayout());
+
+            JButton exitButton = new JButton("Exit");
+            JButton enterButton = new JButton("Enter");
+            JButton patrolButton = new JButton("Patrol");
+            JButton releaseButton = new JButton("Release");
+            JButton visitButton = new JButton("Visit");
+
+            // Add actions (for now, just print messages)
+            exitButton.addActionListener(e -> System.out.println("Exit action triggered"));
+            enterButton.addActionListener(e -> System.out.println("Enter action triggered"));
+            patrolButton.addActionListener(e -> System.out.println("Patrol action triggered"));
+            releaseButton.addActionListener(e -> System.out.println("Release action triggered"));
+            visitButton.addActionListener(e -> System.out.println("Visit action triggered"));
+
+            // Add buttons to panel
+            buttonPanel.add(exitButton);
+            buttonPanel.add(enterButton);
+            buttonPanel.add(patrolButton);
+            buttonPanel.add(releaseButton);
+            buttonPanel.add(visitButton);
+
+            frame.add(buttonPanel, BorderLayout.SOUTH);
 
             frame.setVisible(true);
         });
